@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-final Color lvlBarBackgroundColor = Color.fromRGBO(52, 58, 70, 1);
-final Color lvlBarForegroundColor = Color.fromRGBO(52, 58, 70, 1);
+final Color lvlBarBackgroundColor = Color.fromRGBO(168, 208, 219, 1);
+final Color lvlBarForegroundColor = Color.fromRGBO(82, 161, 183, 1);
 
 final Color leaderboardGoldColor = Color.fromRGBO(245, 200, 0, 1);
 final Color leaderboardSilverColor = Color.fromRGBO(162, 162, 164, 1);

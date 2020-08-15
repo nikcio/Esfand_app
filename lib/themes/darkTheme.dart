@@ -6,22 +6,17 @@ ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primarySwatch: Colors.blueGrey,
     canvasColor: backgroundColor,
-
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(
         color: navItemSelected,
         size: 28,
       ),
-
       unselectedIconTheme: IconThemeData(
         color: navItemUnselected,
         size: 28,
       ),
-
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,
       showUnselectedLabels: false,
     ),
-
-    cardColor: cardColor
-);
+    cardColor: cardColor);

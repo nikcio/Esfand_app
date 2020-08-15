@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
+import '../globalValues.dart';
 
 class BottomNav extends StatefulWidget {
   @override
@@ -7,12 +9,11 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  int _selectedIndex = 0;
-
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
+    key.currentState.setState(() {});
   }
 
   @override
@@ -21,26 +22,26 @@ class _BottomNavState extends State<BottomNav> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.access_time),
-          title: Text('a'),
+          title: Text('News'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.view_day),
-          title: Text('a'),
+          title: Text('Feed'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.equalizer),
-          title: Text('a'),
+          title: Text('Leaderboard'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.notifications_active),
-          title: Text('a'),
+          title: Text('Notifications'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
-          title: Text('a'),
+          title: Text('Profile'),
         ),
       ],
-      currentIndex: _selectedIndex,
+      currentIndex: selectedIndex,
       onTap: _onItemTapped,
       showSelectedLabels: false,
     );

@@ -66,7 +66,8 @@ class _PostCardVideoState extends State<PostCardVideo> {
 
 class YoutubeVideo extends StatefulWidget {
   final String url;
-  YoutubeVideo({this.url});
+  final bool last;
+  YoutubeVideo({this.url, this.last});
 
   @override
   _YoutubeVideoState createState() => _YoutubeVideoState();
@@ -79,10 +80,9 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(
-          widget.url),
+      initialVideoId: YoutubePlayer.convertUrlToId(widget.url),
       flags: YoutubePlayerFlags(
-        autoPlay: true,
+        autoPlay: false,
         mute: false,
         loop: true,
       ),
@@ -102,6 +102,8 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
   Widget build(BuildContext context) {
     return Container(
       height: isFullscreen ? MediaQuery.of(context).size.height : null,
+      margin:
+          widget.last ? null : EdgeInsets.only(bottom: isFullscreen ? 40 : 20),
       child: YoutubePlayerBuilder(
         player: YoutubePlayer(
           controller: _controller,

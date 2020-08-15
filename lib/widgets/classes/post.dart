@@ -1,7 +1,4 @@
-
-
-class Post{
-
+class Post {
   String author;
   String redditId;
   String date;
@@ -11,21 +8,18 @@ class Post{
   bool multi;
   List<Link> links;
 
-  Post({
-    this.author,
-    this.redditId,
-    this.date,
-    this.over_18,
-    this.title,
-    this.content,
-    this.multi,
-    this.links
-  });
-
+  Post(
+      {this.author,
+      this.redditId,
+      this.date,
+      this.over_18,
+      this.title,
+      this.content,
+      this.multi,
+      this.links});
 }
 
-class Link{
-
+class Link {
   String type;
   String url;
 
