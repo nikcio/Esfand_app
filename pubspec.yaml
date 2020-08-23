@@ -27,6 +27,7 @@ dependencies:
   youtube_player_flutter:
   http:
   scrollable_positioned_list:
+  html_unescape:
 
 
   # The following adds the Cupertino Icons font to your application.

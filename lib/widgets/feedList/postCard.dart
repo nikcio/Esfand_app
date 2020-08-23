@@ -3,16 +3,29 @@ import 'package:esfandapp/widgets/classes/post.dart';
 import 'package:esfandapp/widgets/feedList/postCardVideo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   final Post post;
   final int index;
   PostCard({this.post, this.index});
 
   @override
+  _PostCardState createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  bool failed(Post _post){
+    if(_post.links[0].type == "Video" && YoutubePlayer.convertUrlToId(_post.links[0].url) == null){
+      return true;
+    }
+    return false;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return failed(widget.post) ? SizedBox(height: 0,) : Container(
       child: Card(
         child: Container(
           child: Column(
@@ -25,7 +38,7 @@ class PostCard extends StatelessWidget {
                   : Align(
                       child: Padding(
                         child: Text(
-                          post.title,
+                          widget.post.title,
                           style: TextStyle(
                             fontFamily: 'Roboto Condensed',
                             fontSize: 16,
@@ -36,8 +49,8 @@ class PostCard extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                     ),
               ContentList(
-                post: post,
-                listIndex: index,
+                post: widget.post,
+                listIndex: widget.index,
               ),
               isFullscreen
                   ? SizedBox(
@@ -47,7 +60,7 @@ class PostCard extends StatelessWidget {
                   : Align(
                       child: Container(
                         child: Text(
-                          post.date,
+                          widget.post.date,
                           style: TextStyle(
                             fontFamily: 'Roboto Condensed',
                             fontSize: 14,

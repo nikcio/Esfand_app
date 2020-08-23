@@ -1,4 +1,5 @@
 //TODO make date DateTime
+import 'package:html_unescape/html_unescape.dart';
 
 class YoutubeVideoData{
   String id;
@@ -11,7 +12,7 @@ class YoutubeVideoData{
     return YoutubeVideoData(
       id: json["id"]["videoId"],
       date: json["snippet"]["publishedAt"],
-      title: json["snippet"]["title"],
+      title: HtmlUnescape().convert(json["snippet"]["title"]),
     );
   }
 }

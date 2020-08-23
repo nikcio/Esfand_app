@@ -88,7 +88,7 @@ Future<List<Post>> fetchPosts() async {
   final response = await http.get('http://nikcio.com/api/esfandapp/get-posts');
 
   if (response.statusCode == 200) {
-    final _response = json.decode(response.body);
+    final _response = json.decode(utf8.decode(response.bodyBytes));
     var _results = _response['results'] as List;
     return _results.map((i) => Post.fromJson(i)).toList();
   } else {
@@ -100,7 +100,7 @@ Future<List<YoutubeVideoData>> fetchVideos() async {
   final response = await http.get('https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UChX76aZbAkJBdQQ2iAm-GQg&maxResults=10&order=date&type=video&key=AIzaSyBlYG3GH6GO8XRLrMmXYIV2l52JTQ7p_-Y');
 
   if (response.statusCode == 200) {
-    final _response = json.decode(response.body);
+    final _response = json.decode(utf8.decode(utf8.encode(response.body)));
     var _results = _response['items'] as List;
     return _results.map((i) => YoutubeVideoData.fromJson(i)).toList();
   } else {
