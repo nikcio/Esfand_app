@@ -1,12 +1,14 @@
 import 'package:esfandapp/globalValues.dart';
 import 'package:esfandapp/widgets/classes/post.dart';
-import 'file:///Y:/GitRepo/esfand_app/lib/widgets/feedList/postCardVideo.dart';
+import 'package:esfandapp/widgets/feedList/postCardVideo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class PostCardImage extends StatelessWidget {
+class PostCard extends StatelessWidget {
   final Post post;
-  PostCardImage({this.post});
+  final int index;
+  PostCard({this.post, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class PostCardImage extends StatelessWidget {
                     ),
               ContentList(
                 post: post,
+                listIndex: index,
               ),
               isFullscreen
                   ? SizedBox(
@@ -73,7 +76,8 @@ class PostCardImage extends StatelessWidget {
 
 class ContentList extends StatelessWidget {
   final Post post;
-  ContentList({this.post});
+  final int listIndex;
+  ContentList({this.post, this.listIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +89,7 @@ class ContentList extends StatelessWidget {
                   link: e.value,
                   index: e.key,
                   length: post.links.length - 1,
+                  listIndex: listIndex,
                 ))
             .toList());
   }
@@ -94,22 +99,26 @@ class Content extends StatelessWidget {
   final Link link;
   final int index;
   final int length;
-  Content({this.link, this.index, this.length});
+  final int listIndex;
+  Content({this.link, this.index, this.length, this.listIndex});
 
   @override
   Widget build(BuildContext context) {
     if (link.type == "Image") {
       return Container(
         margin: index == length ? null : EdgeInsets.only(bottom: 20),
-        child: Image(
-          image: NetworkImage(link.url),
-        ),
+        child: FadeInImage.assetNetwork(placeholder: 'assets/logo70x70.png', image: link.url)
       );
     } else if (link.type == "Video") {
-      return YoutubeVideo(
-        url: link.url,
-        last: index == length,
-      );
+      if(YoutubePlayer.convertUrlToId(link.url) != null){
+        return YoutubeVideo(
+          url: link.url,
+          last: index == length,
+          listIndex: listIndex,
+        );
+      }else{
+        return Text("Failed to load");
+      }
     } else {
       return Text("Not found");
     }

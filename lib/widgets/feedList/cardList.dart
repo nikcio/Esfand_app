@@ -1,9 +1,8 @@
 import 'package:esfandapp/globalValues.dart';
-import 'package:esfandapp/widgets/classes/post.dart';
-import 'file:///Y:/GitRepo/esfand_app/lib/widgets/feedList/postCard.dart';
-import 'file:///Y:/GitRepo/esfand_app/lib/widgets/feedList/postCardVideo.dart';
+import 'package:esfandapp/widgets/feedList/postCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class CardList extends StatefulWidget {
   @override
@@ -11,93 +10,19 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
-  List<Post> posts = [
-    Post(
-        author: "person",
-        redditId: "23Hsa",
-        date: "Today",
-        over_18: false,
-        title: "Title hhere",
-        content: "",
-        multi: false,
-        links: [
-          Link(
-              type: "Video",
-              url: "https://www.youtube.com/watch?v=QyFaR00tAvE"),
-          Link(
-              type: "Video", url: "https://www.youtube.com/watch?v=QyFaR00tAvE")
-        ]),
-    Post(
-        author: "person",
-        redditId: "23Hsa",
-        date: "Today",
-        over_18: false,
-        title: "Title hhere",
-        content: "",
-        multi: false,
-        links: [
-          Link(
-              type: "Image",
-              url:
-                  "https://www.tutorialspoint.com/dart_programming/images/dart-programming-mini-logo.jpg"),
-          Link(
-              type: "Image",
-              url:
-                  "https://www.tutorialspoint.com/dart_programming/images/dart-programming-mini-logo.jpg")
-        ]),
-    Post(
-        author: "person",
-        redditId: "23Hsa",
-        date: "Today",
-        over_18: false,
-        title: "Title hhere",
-        content: "",
-        multi: false,
-        links: [
-          Link(
-              type: "Image",
-              url:
-                  "https://www.tutorialspoint.com/dart_programming/images/dart-programming-mini-logo.jpg")
-        ]),
-    Post(
-        author: "person",
-        redditId: "23Hsa",
-        date: "Today",
-        over_18: false,
-        title: "Title hhere",
-        content: "",
-        multi: false,
-        links: [
-          Link(
-              type: "Image",
-              url:
-                  "https://www.tutorialspoint.com/dart_programming/images/dart-programming-mini-logo.jpg")
-        ]),
-    Post(
-        author: "person",
-        redditId: "23Hsa",
-        date: "Today",
-        over_18: false,
-        title: "Title hhere",
-        content: "",
-        multi: false,
-        links: [
-          Link(
-              type: "Image",
-              url:
-                  "https://www.tutorialspoint.com/dart_programming/images/dart-programming-mini-logo.jpg")
-        ])
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: new ListView.builder(
+        child: ScrollablePositionedList.builder(
+          itemScrollController: listScrollController,
+            initialScrollIndex: prevFullscreenIndex,
             itemCount: posts.length,
             physics: isFullscreen ? NeverScrollableScrollPhysics() : null,
             itemBuilder: (BuildContext context, int index) {
-              return PostCardImage(
+              return PostCard(
                 post: posts[index],
+                index: index,
               );
             }));
   }

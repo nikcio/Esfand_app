@@ -67,13 +67,14 @@ class _PostCardVideoState extends State<PostCardVideo> {
 class YoutubeVideo extends StatefulWidget {
   final String url;
   final bool last;
-  YoutubeVideo({this.url, this.last});
+  final int listIndex;
+  YoutubeVideo({this.url, this.last, this.listIndex, Key key}) : super(key: key);
 
   @override
-  _YoutubeVideoState createState() => _YoutubeVideoState();
+  YoutubeVideoState createState() => YoutubeVideoState();
 }
 
-class _YoutubeVideoState extends State<YoutubeVideo> {
+class YoutubeVideoState extends State<YoutubeVideo> {
   YoutubePlayerController _controller;
 
   @override
@@ -93,6 +94,20 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
     if (isFullscreen != _controller.value.isFullScreen) {
       setState(() {
         isFullscreen = _controller.value.isFullScreen;
+
+        if(widget.listIndex == -1 && fullscreenIndex != -1){
+          prevFullscreenIndex = fullscreenIndex;
+        }
+        fullscreenIndex = widget.listIndex;
+
+        print("widget index: " + widget.listIndex.toString());
+        print("fullscreen? " +_controller.value.isFullScreen.toString());
+        print("bool: " + (_controller.value.isFullScreen).toString());
+        print("bool for prev: " + (widget.listIndex == -1 && fullscreenIndex != -1).toString());
+        print("index: " + fullscreenIndex.toString());
+        print("prev: " + prevFullscreenIndex.toString());
+
+
       });
       key.currentState.setState(() {});
     }

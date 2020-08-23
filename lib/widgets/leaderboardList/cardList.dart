@@ -1,7 +1,7 @@
-import 'package:esfandapp/widgets/classes/user.dart';
+import 'package:esfandapp/widgets/leaderboardList/userCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'userCard.dart';
+import '../../globalValues.dart';
 
 class CardList extends StatefulWidget {
   @override
@@ -9,40 +9,15 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
-  List<User> users = [
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-    User(username: "Person", level: 12),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: new ListView.builder(
-          itemCount: users.length,
+          itemCount: leaderboardUsers.length,
           itemBuilder: (BuildContext context, int index) {
             return UserCard(
-              user: users[index],
+              user: leaderboardUsers[index],
               index: index,
             );
           }),

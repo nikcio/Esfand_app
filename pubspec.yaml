@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   video_player:
   youtube_player_flutter:
+  http:
+  scrollable_positioned_list:
 
 
   # The following adds the Cupertino Icons font to your application.
