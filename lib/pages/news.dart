@@ -1,6 +1,6 @@
 import 'package:esfandapp/widgets/classes/level.dart';
-import 'package:esfandapp/widgets/feedList/cardList.dart';
-import 'package:esfandapp/widgets/feedList/postCardVideo.dart';
+import 'package:esfandapp/widgets/newsList/cardList.dart';
+import 'package:esfandapp/widgets/newsList/videoElement.dart';
 import 'package:esfandapp/widgets/header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,8 @@ class _YTVideoState extends State<YTVideo> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: YoutubeVideo(
-        url: posts[fullscreenIndex].links[0].url,
+      child: VideoElement(
+        id: posts[fullscreenIndex].links[0].url,
         listIndex: -1,
         last: true,
       ),
