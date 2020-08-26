@@ -8,5 +8,7 @@ Level _level = Level(title: "Novice", progress: 0.3);
 
 List<Widget> leaderboard = [
 Header(level: _level,),
-  Expanded(child: CardList()),
+  Expanded(child: Center(child: Text("Gathering information"),),)
+  //TODO finish leaderboard info
+  //Expanded(child: CardList()),
 ];

@@ -6,5 +6,7 @@ import 'package:flutter/material.dart';
 
 List<Widget> notificationTab = [
 Header(level: level,),
-  Expanded(child: CardList(),)
+  Expanded(child: Center(child: Text("In development")),)
+  //TODO get notification information
+  //Expanded(child: CardList(),)
 ];

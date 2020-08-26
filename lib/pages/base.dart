@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+//TODO switch to a url launcher instead of in app video player: https://pub.dev/packages/url_launcher
 import 'package:esfandapp/widgets/classes/post.dart';
 import 'package:esfandapp/widgets/classes/youtubeVideoData.dart';
 import 'package:flutter/cupertino.dart';
