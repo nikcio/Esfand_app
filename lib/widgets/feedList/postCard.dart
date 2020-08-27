@@ -1,12 +1,11 @@
 import 'package:esfandapp/widgets/classes/post.dart';
-import 'package:esfandapp/widgets/feedList/postCardVideo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostCard extends StatefulWidget {
   final Post post;
-  final int index;
-  PostCard({this.post, this.index});
+  PostCard({this.post});
 
   @override
   _PostCardState createState() => _PostCardState();
@@ -14,7 +13,8 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool failed(Post _post) {
-    if (_post.links[0].type == "Video") {
+    if (_post.links[0].type == "Video" &&
+        !_post.links[0].url.contains('youtube')) {
       return true;
     }
     return false;
@@ -46,7 +46,6 @@ class _PostCardState extends State<PostCard> {
                     ),
                     ContentList(
                       post: widget.post,
-                      listIndex: widget.index,
                     ),
                     Align(
                       child: Container(
@@ -80,8 +79,7 @@ class _PostCardState extends State<PostCard> {
 
 class ContentList extends StatelessWidget {
   final Post post;
-  final int listIndex;
-  ContentList({this.post, this.listIndex});
+  ContentList({this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +91,6 @@ class ContentList extends StatelessWidget {
                   link: e.value,
                   index: e.key,
                   length: post.links.length - 1,
-                  listIndex: listIndex,
                 ))
             .toList());
   }
@@ -103,8 +100,7 @@ class Content extends StatelessWidget {
   final Link link;
   final int index;
   final int length;
-  final int listIndex;
-  Content({this.link, this.index, this.length, this.listIndex});
+  Content({this.link, this.index, this.length});
 
   @override
   Widget build(BuildContext context) {
@@ -114,12 +110,31 @@ class Content extends StatelessWidget {
           child: FadeInImage.assetNetwork(
               placeholder: 'assets/logo70x70.png', image: link.url));
     } else if (link.type == "Video") {
-      if (true) {
-        return YoutubeVideo(
-          url: link.url,
-          last: index == length,
-          listIndex: listIndex,
-        );
+      if (link.url.contains('youtube')) {
+        RegExp youtubeId = new RegExp(
+            r"(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)");
+
+//        TODO: adaptive pictures -- Pictures = default, mqdefault, hqdefault
+
+        return Stack(alignment: Alignment.center, children: [
+          InkWell(
+              onTap: () => _goToVideo(link.url),
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.network(
+                    "https://i.ytimg.com/vi/" +
+                        youtubeId.firstMatch(link.url).group(1) +
+                        "/mqdefault.jpg",
+                    fit: BoxFit.cover,
+                  ))),
+          Card(
+            color: Color.fromRGBO(255, 0, 0, 1),
+            child: Icon(
+              Icons.play_arrow,
+              size: 50,
+            ),
+          )
+        ]);
       } else {
         return Text("Failed to load");
       }
@@ -127,4 +142,8 @@ class Content extends StatelessWidget {
       return Text("Not found");
     }
   }
+}
+
+_goToVideo(String url) async {
+  await launch(url);
 }

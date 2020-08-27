@@ -19,7 +19,6 @@ class _CardListState extends State<CardList> {
             itemBuilder: (BuildContext context, int index) {
               return VideoCard(
                 video: videos[index],
-                index: index,
               );
             }));
   }
