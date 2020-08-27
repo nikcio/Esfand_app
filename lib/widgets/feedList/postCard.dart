@@ -1,10 +1,7 @@
-import 'package:esfandapp/globalValues.dart';
 import 'package:esfandapp/widgets/classes/post.dart';
 import 'package:esfandapp/widgets/feedList/postCardVideo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PostCard extends StatefulWidget {
   final Post post;
@@ -16,8 +13,8 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-  bool failed(Post _post){
-    if(_post.links[0].type == "Video" && YoutubePlayer.convertUrlToId(_post.links[0].url) == null){
+  bool failed(Post _post) {
+    if (_post.links[0].type == "Video") {
       return true;
     }
     return false;
@@ -25,17 +22,16 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    return failed(widget.post) ? SizedBox(height: 0,) : Container(
-      child: Card(
-        child: Container(
-          child: Column(
-            children: [
-              isFullscreen
-                  ? SizedBox(
-                      height: 0,
-                      width: 0,
-                    )
-                  : Align(
+    return failed(widget.post)
+        ? SizedBox(
+            height: 0,
+          )
+        : Container(
+            child: Card(
+              child: Container(
+                child: Column(
+                  children: [
+                    Align(
                       child: Padding(
                         child: Text(
                           widget.post.title,
@@ -48,16 +44,11 @@ class _PostCardState extends State<PostCard> {
                       ),
                       alignment: Alignment.centerLeft,
                     ),
-              ContentList(
-                post: widget.post,
-                listIndex: widget.index,
-              ),
-              isFullscreen
-                  ? SizedBox(
-                      height: 0,
-                      width: 0,
-                    )
-                  : Align(
+                    ContentList(
+                      post: widget.post,
+                      listIndex: widget.index,
+                    ),
+                    Align(
                       child: Container(
                         child: Text(
                           widget.post.date,
@@ -71,19 +62,19 @@ class _PostCardState extends State<PostCard> {
                       ),
                       alignment: Alignment.centerLeft,
                     ),
-            ],
-          ),
-          width: MediaQuery.of(context).size.width - 32,
-          padding: EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 10,
-          ),
-          alignment: Alignment.center,
-        ),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25))),
-      ),
-    );
+                  ],
+                ),
+                width: MediaQuery.of(context).size.width - 32,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0,
+                  vertical: 10,
+                ),
+                alignment: Alignment.center,
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25))),
+            ),
+          );
   }
 }
 
@@ -119,17 +110,17 @@ class Content extends StatelessWidget {
   Widget build(BuildContext context) {
     if (link.type == "Image") {
       return Container(
-        margin: index == length ? null : EdgeInsets.only(bottom: 20),
-        child: FadeInImage.assetNetwork(placeholder: 'assets/logo70x70.png', image: link.url)
-      );
+          margin: index == length ? null : EdgeInsets.only(bottom: 20),
+          child: FadeInImage.assetNetwork(
+              placeholder: 'assets/logo70x70.png', image: link.url));
     } else if (link.type == "Video") {
-      if(YoutubePlayer.convertUrlToId(link.url) != null){
+      if (true) {
         return YoutubeVideo(
           url: link.url,
           last: index == length,
           listIndex: listIndex,
         );
-      }else{
+      } else {
         return Text("Failed to load");
       }
     } else {

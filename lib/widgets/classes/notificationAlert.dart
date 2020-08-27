@@ -1,4 +1,4 @@
-class NotificationAlert{
+class NotificationAlert {
   String title;
   String time;
 

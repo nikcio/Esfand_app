@@ -9,7 +9,6 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
-
   @override
   Widget build(BuildContext context) {
     return Container(

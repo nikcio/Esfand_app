@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-
   final level;
 
   Header({this.level});

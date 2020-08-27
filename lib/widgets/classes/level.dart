@@ -1,4 +1,4 @@
-class Level{
+class Level {
   String title;
   double progress;
 

@@ -29,13 +29,12 @@ class BasePageState extends State<BasePage> {
     super.initState();
     futurePosts = fetchPosts();
     futureVideos = fetchVideos();
-    isFullscreen = false;
   }
 
   List<Widget> getPage(int index) {
     List<List<Widget>> pages = [
-      isFullscreen ? newsFullscreen : newsNotFullscreen,
-      isFullscreen ? feedFullscreen : feedNotFullscreen,
+      news,
+      feed,
       leaderboard,
       notificationTab,
       profile,
@@ -53,21 +52,21 @@ class BasePageState extends State<BasePage> {
           posts = snapshot.data;
           return FutureBuilder<List<YoutubeVideoData>>(
             future: futureVideos,
-            builder: (context, snapshot){
+            builder: (context, snapshot) {
               videos = snapshot.data;
-              if(snapshot.hasData){
+              if (snapshot.hasData) {
                 return Scaffold(
                     body: Column(children: getPage(selectedIndex)),
-                    bottomNavigationBar: isFullscreen ? null : BottomNav());
-              }else if (snapshot.hasError){
+                    bottomNavigationBar: BottomNav());
+              } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
               return Center(
                   child: Container(
-                    child: CircularProgressIndicator(),
-                    width: 100,
-                    height: 100,
-                  ));
+                child: CircularProgressIndicator(),
+                width: 100,
+                height: 100,
+              ));
             },
           );
         } else if (snapshot.hasError) {
@@ -97,7 +96,8 @@ Future<List<Post>> fetchPosts() async {
 }
 
 Future<List<YoutubeVideoData>> fetchVideos() async {
-  final response = await http.get('https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UChX76aZbAkJBdQQ2iAm-GQg&maxResults=10&order=date&type=video&key=AIzaSyBlYG3GH6GO8XRLrMmXYIV2l52JTQ7p_-Y');
+  final response = await http.get(
+      'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UChX76aZbAkJBdQQ2iAm-GQg&maxResults=10&order=date&type=video&key=AIzaSyBlYG3GH6GO8XRLrMmXYIV2l52JTQ7p_-Y');
 
   if (response.statusCode == 200) {
     final _response = json.decode(utf8.decode(utf8.encode(response.body)));

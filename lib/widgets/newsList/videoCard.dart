@@ -1,11 +1,7 @@
-import 'package:esfandapp/globalValues.dart';
-import 'package:esfandapp/widgets/classes/post.dart';
 import 'package:esfandapp/widgets/classes/youtubeVideoData.dart';
-import 'package:esfandapp/widgets/feedList/postCardVideo.dart';
 import 'package:esfandapp/widgets/newsList/videoElement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoCard extends StatelessWidget {
   final YoutubeVideoData video;
@@ -19,12 +15,7 @@ class VideoCard extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
-              isFullscreen
-                  ? SizedBox(
-                height: 0,
-                width: 0,
-              )
-                  : Align(
+              Align(
                 child: Padding(
                   child: Text(
                     video.title,
@@ -41,12 +32,7 @@ class VideoCard extends StatelessWidget {
                 video: video,
                 listIndex: index,
               ),
-              isFullscreen
-                  ? SizedBox(
-                height: 0,
-                width: 0,
-              )
-                  : Align(
+              Align(
                 child: Container(
                   child: Text(
                     video.date.toString() + "",

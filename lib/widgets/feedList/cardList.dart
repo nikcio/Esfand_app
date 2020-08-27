@@ -10,15 +10,12 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
         child: ScrollablePositionedList.builder(
-          itemScrollController: listScrollController,
-            initialScrollIndex: prevFullscreenIndex,
+            itemScrollController: listScrollController,
             itemCount: posts.length,
-            physics: isFullscreen ? NeverScrollableScrollPhysics() : null,
             itemBuilder: (BuildContext context, int index) {
               return PostCard(
                 post: posts[index],

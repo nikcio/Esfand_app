@@ -23,7 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  youtube_player_flutter:
   http:
   scrollable_positioned_list:
   html_unescape:
