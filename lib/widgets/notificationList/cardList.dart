@@ -10,7 +10,6 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +17,8 @@ class _CardListState extends State<CardList> {
           itemCount: notifications.length,
           itemBuilder: (BuildContext context, int index) {
             return NotificationCard(
-              title: notifications[index].title, time: notifications[index].time,
+              title: notifications[index].title,
+              time: notifications[index].time,
             );
           }),
     );

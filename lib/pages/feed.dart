@@ -6,13 +6,9 @@ import 'package:flutter/material.dart';
 
 Level _level = Level(title: "Novice", progress: 0.3);
 
-List<Widget> feedNotFullscreen = [
-  Header(level: _level,),
+List<Widget> feed = [
+  Header(
+    level: _level,
+  ),
   Expanded(child: CardList())
-];
-
-List<Widget> feedFullscreen = [
-  Expanded(
-    child: CardList(),
-  )
 ];

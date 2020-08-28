@@ -25,7 +25,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
+            margin: EdgeInsets.symmetric(vertical: 5),
             width: index == 0
                 ? MediaQuery.of(context).size.width - 10
                 : index == 1
@@ -37,8 +37,8 @@ class UserCard extends StatelessWidget {
             color: index == 0
                 ? leaderboardGoldColor
                 : index == 1
-                ? leaderboardSilverColor
-                : index == 2 ? leaderboardBronzeColor : cardColor,
+                    ? leaderboardSilverColor
+                    : index == 2 ? leaderboardBronzeColor : cardColor,
             child: Center(
               child: ListTile(
                 leading: Text(

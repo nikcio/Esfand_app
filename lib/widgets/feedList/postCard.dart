@@ -1,31 +1,40 @@
-import 'package:esfandapp/globalValues.dart';
 import 'package:esfandapp/widgets/classes/post.dart';
-import 'package:esfandapp/widgets/feedList/postCardVideo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   final Post post;
-  final int index;
-  PostCard({this.post, this.index});
+  PostCard({this.post});
+
+  @override
+  _PostCardState createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  bool failed(Post _post) {
+    if (_post.links[0].type == "Video" &&
+        !_post.links[0].url.contains('youtube')) {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        child: Container(
-          child: Column(
-            children: [
-              isFullscreen
-                  ? SizedBox(
-                      height: 0,
-                      width: 0,
-                    )
-                  : Align(
+    return failed(widget.post)
+        ? SizedBox(
+            height: 0,
+          )
+        : Container(
+            child: Card(
+              child: Container(
+                child: Column(
+                  children: [
+                    Align(
                       child: Padding(
                         child: Text(
-                          post.title,
+                          widget.post.title,
                           style: TextStyle(
                             fontFamily: 'Roboto Condensed',
                             fontSize: 16,
@@ -35,19 +44,13 @@ class PostCard extends StatelessWidget {
                       ),
                       alignment: Alignment.centerLeft,
                     ),
-              ContentList(
-                post: post,
-                listIndex: index,
-              ),
-              isFullscreen
-                  ? SizedBox(
-                      height: 0,
-                      width: 0,
-                    )
-                  : Align(
+                    ContentList(
+                      post: widget.post,
+                    ),
+                    Align(
                       child: Container(
                         child: Text(
-                          post.date,
+                          widget.post.date,
                           style: TextStyle(
                             fontFamily: 'Roboto Condensed',
                             fontSize: 14,
@@ -58,26 +61,25 @@ class PostCard extends StatelessWidget {
                       ),
                       alignment: Alignment.centerLeft,
                     ),
-            ],
-          ),
-          width: MediaQuery.of(context).size.width - 32,
-          padding: EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 10,
-          ),
-          alignment: Alignment.center,
-        ),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25))),
-      ),
-    );
+                  ],
+                ),
+                width: MediaQuery.of(context).size.width - 32,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0,
+                  vertical: 10,
+                ),
+                alignment: Alignment.center,
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25))),
+            ),
+          );
   }
 }
 
 class ContentList extends StatelessWidget {
   final Post post;
-  final int listIndex;
-  ContentList({this.post, this.listIndex});
+  ContentList({this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,6 @@ class ContentList extends StatelessWidget {
                   link: e.value,
                   index: e.key,
                   length: post.links.length - 1,
-                  listIndex: listIndex,
                 ))
             .toList());
   }
@@ -99,28 +100,50 @@ class Content extends StatelessWidget {
   final Link link;
   final int index;
   final int length;
-  final int listIndex;
-  Content({this.link, this.index, this.length, this.listIndex});
+  Content({this.link, this.index, this.length});
 
   @override
   Widget build(BuildContext context) {
     if (link.type == "Image") {
       return Container(
-        margin: index == length ? null : EdgeInsets.only(bottom: 20),
-        child: FadeInImage.assetNetwork(placeholder: 'assets/logo70x70.png', image: link.url)
-      );
+          margin: index == length ? null : EdgeInsets.only(bottom: 20),
+          child: FadeInImage.assetNetwork(
+              placeholder: 'assets/logo70x70.png', image: link.url));
     } else if (link.type == "Video") {
-      if(YoutubePlayer.convertUrlToId(link.url) != null){
-        return YoutubeVideo(
-          url: link.url,
-          last: index == length,
-          listIndex: listIndex,
-        );
-      }else{
+      if (link.url.contains('youtube')) {
+        RegExp youtubeId = new RegExp(
+            r"(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)");
+
+//        TODO: adaptive pictures -- Pictures = default, mqdefault, hqdefault
+
+        return Stack(alignment: Alignment.center, children: [
+          InkWell(
+              onTap: () => _goToVideo(link.url),
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.network(
+                    "https://i.ytimg.com/vi/" +
+                        youtubeId.firstMatch(link.url).group(1) +
+                        "/mqdefault.jpg",
+                    fit: BoxFit.cover,
+                  ))),
+          Card(
+            color: Color.fromRGBO(255, 0, 0, 1),
+            child: Icon(
+              Icons.play_arrow,
+              size: 50,
+            ),
+          )
+        ]);
+      } else {
         return Text("Failed to load");
       }
     } else {
       return Text("Not found");
     }
   }
+}
+
+_goToVideo(String url) async {
+  await launch(url);
 }

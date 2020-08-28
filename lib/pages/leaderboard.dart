@@ -7,6 +7,14 @@ import 'package:esfandapp/widgets/leaderboardList/cardList.dart';
 Level _level = Level(title: "Novice", progress: 0.3);
 
 List<Widget> leaderboard = [
-Header(level: _level,),
-  Expanded(child: CardList()),
+  Header(
+    level: _level,
+  ),
+  Expanded(
+    child: Center(
+      child: Text("Gathering information"),
+    ),
+  )
+  //TODO finish leaderboard info
+  //Expanded(child: CardList()),
 ];

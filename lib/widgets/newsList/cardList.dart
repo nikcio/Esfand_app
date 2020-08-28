@@ -1,5 +1,5 @@
 import 'package:esfandapp/globalValues.dart';
-import 'package:esfandapp/widgets/feedList/postCard.dart';
+import 'package:esfandapp/widgets/newsList/videoCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -15,10 +15,10 @@ class _CardListState extends State<CardList> {
     return Container(
         child: ScrollablePositionedList.builder(
             itemScrollController: listScrollController,
-            itemCount: posts.length,
+            itemCount: videos.length,
             itemBuilder: (BuildContext context, int index) {
-              return PostCard(
-                post: posts[index],
+              return VideoCard(
+                video: videos[index],
               );
             }));
   }
