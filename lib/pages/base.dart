@@ -16,7 +16,6 @@ class BasePage extends StatefulWidget {
 }
 
 class BasePageState extends State<BasePage> {
-
   Widget getPage(int index) {
     List<Widget> pages = [
       News(),

@@ -34,15 +34,15 @@ class _NewsState extends State<News> {
         ),
         FutureBuilder<List<YoutubeVideoData>>(
           future: _futureVideos,
-          builder: (context, snapshot){
-            if(snapshot.hasData){
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
               videos = snapshot.data;
               return Expanded(
                 child: CardList(),
               );
-            }else if(snapshot.hasError){
+            } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
-            }else{
+            } else {
               return Center(
                 child: Container(
                   child: CircularProgressIndicator(),
@@ -59,8 +59,8 @@ class _NewsState extends State<News> {
 }
 
 Future<List<YoutubeVideoData>> _fetchVideos() async {
-  final response = await http.get(
-      'https://nikcio.com/api/esfandapp/get-videos');
+  final response =
+      await http.get('https://nikcio.com/api/esfandapp/get-videos');
 
   if (response.statusCode == 200) {
     final _response = json.decode(utf8.decode(utf8.encode(response.body)));

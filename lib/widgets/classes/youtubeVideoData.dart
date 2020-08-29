@@ -20,17 +20,16 @@ class YoutubeVideoData {
   }
 }
 
-class Thumbnail{
+class Thumbnail {
   String url;
   String size;
 
   Thumbnail({this.size, this.url});
 
-  factory Thumbnail.fromJson(Map<String, dynamic> json){
+  factory Thumbnail.fromJson(Map<String, dynamic> json) {
     return Thumbnail(
       url: json["url"],
       size: json["size"],
     );
   }
-
 }
