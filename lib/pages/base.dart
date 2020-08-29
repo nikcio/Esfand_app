@@ -97,11 +97,11 @@ Future<List<Post>> fetchPosts() async {
 
 Future<List<YoutubeVideoData>> fetchVideos() async {
   final response = await http.get(
-      'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UChX76aZbAkJBdQQ2iAm-GQg&maxResults=10&order=date&type=video&key=AIzaSyBlYG3GH6GO8XRLrMmXYIV2l52JTQ7p_-Y');
+      'https://nikcio.com/api/esfandapp/get-videos');
 
   if (response.statusCode == 200) {
     final _response = json.decode(utf8.decode(utf8.encode(response.body)));
-    var _results = _response['items'] as List;
+    var _results = _response['results'] as List;
     return _results.map((i) => YoutubeVideoData.fromJson(i)).toList();
   } else {
     throw Exception('Failed to load resources');

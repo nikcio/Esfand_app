@@ -32,7 +32,7 @@ class VideoCard extends StatelessWidget {
                 Stack(alignment: Alignment.center, children: [
                   Container(
                     child: Image.network(
-                      video.thumbnails[1],
+                      video.thumbnails[1].url,
                       fit: BoxFit.cover,
                     ),
                     width: MediaQuery.of(context).size.width,
