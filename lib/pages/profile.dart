@@ -5,14 +5,26 @@ import 'package:flutter/material.dart';
 
 Level _level = Level(title: "Novice", progress: 0.3);
 
-List<Widget> profile = [
-  Header(
-    level: _level,
-  ),
-  Expanded(
-    child: Center(
-      child: Text("In development"),
-    ),
-  )
-  //TODO finish profile
-];
+class Profile extends StatefulWidget {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Header(
+          level: _level,
+        ),
+        Expanded(
+          child: Center(
+            child: Text("In development"),
+          ),
+        )
+        //TODO finish profile
+      ],
+    );
+  }
+}
