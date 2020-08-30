@@ -1,9 +1,7 @@
-//TODO Refactor date to DateTime
-
 class Post {
   String author;
   String redditId;
-  String date;
+  DateTime date;
   bool over_18;
   String title;
   String content;
@@ -26,7 +24,7 @@ class Post {
     return Post(
       author: json['author'],
       redditId: json['reddit_id'],
-      date: json['date'],
+      date: DateTime.parse(json['date']),
       over_18: json['over_18'],
       title: json['title'],
       content: json['content'],

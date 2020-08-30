@@ -1,4 +1,5 @@
 import 'package:esfandapp/widgets/classes/youtubeVideoData.dart';
+import 'package:esfandapp/widgets/functions/timeAgo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,7 +45,7 @@ class VideoCard extends StatelessWidget {
                 Align(
                   child: Container(
                     child: Text(
-                      video.date.toString() + "",
+                      timeAgo(video.date),
                       style: TextStyle(
                         fontFamily: 'Roboto Condensed',
                         fontSize: 14,

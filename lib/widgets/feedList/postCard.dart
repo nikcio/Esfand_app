@@ -1,4 +1,5 @@
 import 'package:esfandapp/widgets/classes/post.dart';
+import 'package:esfandapp/widgets/functions/timeAgo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -50,7 +51,7 @@ class _PostCardState extends State<PostCard> {
                     Align(
                       child: Container(
                         child: Text(
-                          widget.post.date,
+                          timeAgo(widget.post.date),
                           style: TextStyle(
                             fontFamily: 'Roboto Condensed',
                             fontSize: 14,

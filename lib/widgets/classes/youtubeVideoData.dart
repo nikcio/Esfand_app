@@ -1,9 +1,8 @@
-//TODO make date DateTime
 import 'package:html_unescape/html_unescape.dart';
 
 class YoutubeVideoData {
   String url;
-  String date;
+  DateTime date;
   String title;
   List<Thumbnail> thumbnails;
 
@@ -13,7 +12,7 @@ class YoutubeVideoData {
     var _thumbs = json["thumbnails"] as List;
     return YoutubeVideoData(
       url: "https://www.youtube.com/watch?v=" + json["youtubeId"][0]["videoId"],
-      date: json["snippet"][0]["publishedAt"],
+      date: DateTime.parse(json["snippet"][0]["publishedAt"]),
       title: HtmlUnescape().convert(json["snippet"][0]["title"]),
       thumbnails: _thumbs.map((i) => Thumbnail.fromJson(i)).toList(),
     );
