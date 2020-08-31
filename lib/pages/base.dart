@@ -21,7 +21,7 @@ class BasePageState extends State<BasePage> {
       News(),
       Feed(),
       Leaderboard(),
-      Profile(),
+      NotificationTab(),
       Profile(),
     ];
     return pages[index];
